@@ -1,0 +1,21 @@
+.button{
+    
+}
+label{
+    
+}
+#labelNames{
+    
+}
+.form-wrapper{
+    background-color: aliceblue;
+    width: fit-content;
+    text-align: center;
+    width: 30%;
+    margin: auto;
+}
+.radio-wrapper{
+    text-align: left !important;
+    margin: auto;
+    width: 40%;
+}
