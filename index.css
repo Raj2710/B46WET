@@ -1,21 +1,99 @@
 .button{
-    
+    background-color: #4888f0;
+    border-radius: 20px;
+    color: white;
+    font-size: 20px;
 }
-label{
-    
-}
-#labelNames{
-    
-}
+
 .form-wrapper{
     background-color: aliceblue;
     width: fit-content;
     text-align: center;
-    width: 30%;
+    border: 1px solid black;
+    border-radius:50px;
     margin: auto;
+    /* margin: 40px 0px 0px 300px; */
+    padding: 10px 30px 50px 100px;
+/* top right bottom left */
 }
 .radio-wrapper{
     text-align: left !important;
     margin: auto;
     width: 40%;
 }
+body{
+    background-color: aquamarine;
+}
+
+.flex-grand-parent{
+    display: flex;
+    background-color: #4888f0;
+    padding: 50px;
+    flex-direction: row;
+    gap: 1%;
+}
+
+.grad{
+    height: 300px;
+    background-image: radial-gradient(red,yellow,green);
+}
+
+.flex-parent{
+    display: flex;
+    padding: 10px;
+    background-color: greenyellow;  
+    flex-wrap: wrap; 
+    width: 50%;
+}
+.flex-child{
+    background-color: azure;
+    width: 50px;
+    margin: 10px;
+    text-align: center;
+    font-size:xx-large; 
+    
+}
+
+.form-flex-wrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #f09448;
+
+}
+
+.form-flex-field{
+    background-color: bisque;
+    display: flex;
+    /* justify-content: space-between; */
+
+}
+
+.form-flex-field>label{
+    width: 50%;
+    font-size: 50px;
+}
+
+.form-flex-field>input{
+
+    width: 50%;
+    height: 50px;
+
+
+}
+
+.grid-parent{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 10px;
+    background-color: greenyellow; 
+}
+.grid-child{
+    background-color: azure;
+    width: fit- ;
+    margin: 10px;
+    text-align: center;
+    font-size:xx-large; 
+    
+}
+
