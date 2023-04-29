@@ -21,9 +21,9 @@
     margin: auto;
     width: 40%;
 }
-body{
+/* body{
     background-color: aquamarine;
-}
+} */
 
 .flex-grand-parent{
     display: flex;
@@ -97,3 +97,112 @@ body{
     
 }
 
+
+.relative{
+    position: relative;
+    border: 1px solid green;
+    /* left: 10px; */
+    width: 400px;
+    height:400px;
+}
+
+.fixed{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    border: 1px solid green;
+    background-color: greenyellow;
+    width: 300px;
+}
+
+.absolute{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.sticky{
+    position: sticky;
+    top:0;
+}
+
+.content-wrapper{
+    height: 200px;
+    width: 40%;
+    border: 1px solid black;
+    background-color: #4888f0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+}
+
+.content-wrapper:hover{
+    height: 200px;
+    width: 40%;
+    border: 1px solid black;
+    background-color: #4888f0;
+    overflow: visible;
+}
+
+.name-wrapper{
+    width: 10%;
+    border: 1px solid black;
+    background-color: #4888f0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+}
+
+.name-wrapper:hover{
+    width: fit-content;
+    border: 1px solid black;
+    background-color: #4888f0;
+    overflow: visible;
+    /* text-overflow: ellipsis; */
+    /* white-space:nowrap; */
+}
+
+.image{
+    width: 100px;
+    height: 100px;
+}
+
+.image:hover{
+    cursor: pointer;
+}
+
+.icon-label{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 25px;
+    /* font-weight: bolder;
+    font-style:italic; */
+}
+
+.iconcolor {
+    color: grey;
+  }
+
+  .iconcolor:hover{
+    color: red;
+    cursor: pointer;
+  }
+
+  .big-content-wrapper{
+    height:300px;
+    width: 500px;
+    border: 1px solid black;
+    background-color: #4888f0;
+    overflow: scroll;
+}
+
+@media (max-width: 500px) {
+    .big-content-wrapper{
+        height:auto;
+        width: auto;
+        border: 1px solid black;
+        background-color: #ffffff;
+        overflow: scroll;
+    }
+}
