@@ -1,0 +1,14 @@
+#root{
+    text-align: center;
+    font-size: xx-large;
+}
+
+sub{
+    font-size: smaller;
+}
+
+button{
+    margin: 10px;
+    font-size: large;
+    cursor: pointer;
+}
