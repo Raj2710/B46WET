@@ -1,10 +1,10 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 function Sidebar() {
   return <>
     <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-<a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+<a className="sidebar-brand d-flex align-items-center justify-content-center" href="javascript(void)">
     <div className="sidebar-brand-icon rotate-n-15">
         <i className="fas fa-laugh-wink"></i>
     </div>
@@ -14,9 +14,9 @@ function Sidebar() {
 <hr className="sidebar-divider my-0"/>
 
 <li className="nav-item active">
-    <a className="nav-link" href="index.html">
+    <Link to='/dashboard' className="nav-link">
         <i className="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+        <span>Dashboard</span></Link>
 </li>
 
 <hr className="sidebar-divider"/>
@@ -25,19 +25,10 @@ function Sidebar() {
 </div>
 
 <li className="nav-item">
-    <a className="nav-link collapsed" href="javascript(void)" data-toggle="collapse" data-target="#collapseTwo"
-        aria-expanded="true" aria-controls="collapseTwo">
+    <Link to='/add-user' className="nav-link">
         <i className="fas fa-fw fa-cog"></i>
-        <span>Components</span>
-    </a>
-</li>
-
-<li className="nav-item">
-    <a className="nav-link collapsed" href="javascript(void)" data-toggle="collapse" data-target="#collapseUtilities"
-        aria-expanded="true" aria-controls="collapseUtilities">
-        <i className="fas fa-fw fa-wrench"></i>
-        <span>Utilities</span>
-    </a>
+        <span>Add User</span>
+    </Link>
 </li>
     </ul>
   </>
