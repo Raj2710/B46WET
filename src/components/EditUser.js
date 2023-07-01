@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,11 +6,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 function EditUser({users,setUsers}) {
 
   let params = useParams()
-  let [name,setName] = useState(users[params.id].name)
-  let [email,setEmail] = useState(users[params.id].email)
-  let [mobile,setMobile] = useState(users[params.id].mobile)
-  let [address,setAddress] = useState(users[params.id].address)
-  let [batch,setBatch] = useState(users[params.id].batch)
+  let [name,setName] = useState()
+  let [email,setEmail] = useState()
+  let [mobile,setMobile] = useState()
+  let [address,setAddress] = useState()
+  let [batch,setBatch] = useState()
   let navigate = useNavigate()
 
 let handleSave = ()=>{
@@ -19,6 +19,26 @@ let handleSave = ()=>{
   setUsers(newArray)
   navigate('/dashboard')
 }
+
+useEffect(()=>{
+  if(params.id < users.length)
+  {
+    setName(users[params.id].name)
+    setEmail(users[params.id].email)
+    setMobile(users[params.id].mobile)
+    setAddress(users[params.id].address)
+    setBatch(users[params.id].batch)
+  }
+  else
+  {
+    alert("Invalid User Id")
+    navigate('/dashboard')
+  }
+},[])
+
+//1. Without dependancy array useEffect(()=>{}) --> triggers everytime whena a state changes
+//2. With Empty Dependancy array useEffect(()=>{},[]) --> triggers only for the first time of component rendering
+//3. Eith Dependancy Array useEffect(()=>{},[name,email]) ->> trrigers only when name or email changes
 
 return <div className='container'>
    <div className="d-sm-flex align-items-center justify-content-between mb-4">

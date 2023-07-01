@@ -101,7 +101,19 @@ function Dashboard({users,setUsers}) {
       </tbody>
     </Table>
       </div>
-      
+      <div>
+        <h2>Expectation of a FSD Project</h2>
+        <ul>
+          <li>Proper Sign In and Signup Flow is expected</li>
+          <li>Forgot and reset password</li>
+          <li>Should invlov all basic crud application</li>
+          <li>Role based App rendering</li>
+          <li>Charts or Graphs providing some data</li>
+          <li>Export Functionality</li>
+          <li>Mobile Responsive</li>
+
+        </ul>
+      </div>
   </>
 }
 
