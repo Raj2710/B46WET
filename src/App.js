@@ -1,7 +1,7 @@
 import Dashboard from "./components/Dashboard";
 import AddUser from "./components/AddUser";
 import Sidebar from "./components/Sidebar";
-import {BrowserRouter,Routes,Route, Navigate} from 'react-router-dom'
+import {BrowserRouter,Routes,Route, Navigate, useLocation} from 'react-router-dom'
 import EditUser from "./components/EditUser";
 import { useState } from "react";
 import Details from "./components/Details/Details";
@@ -42,7 +42,7 @@ function App() {
       <div id="content-wrapper" className="d-flex flex-column">
       <div id="content">
        <Routes>
-          <Route path="/dashboard" element={<Dashboard users={users} setUsers={setUsers}/>}/>
+          <Route path='/dashboard' element={<Dashboard users={users} setUsers={setUsers}/>}/>
           <Route path='/add-user' element={<AddUser users={users} setUsers={setUsers}/>}/>
           <Route path='/edit-user/:id' element={<EditUser users={users} setUsers={setUsers}/>}/>
           <Route path='/details' element={<Details/>}>

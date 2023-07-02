@@ -1,9 +1,14 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './Details.css'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate,useLocation } from 'react-router-dom'
 function Details() {
+   let location = useLocation()
   let [currentPage,setCurrentPage] = useState(1)
   let navigate = useNavigate()
+
+  useEffect(()=>{
+   console.log('Location Chnaged',location)
+  },[location])
   return <>
      <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 className="h3 mb-0 text-gray-800">Details</h1>
