@@ -1,0 +1,35 @@
+.section-navigator{
+    width: 80%;
+    margin: auto;
+}
+.section-navigator ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.section-navigator ul li{
+    border: 1px solid #4e73df;
+    padding: 10px;
+    cursor: pointer;
+    background-color: white;
+    color: #4e73df;
+}
+
+.section-navigator ul li:hover{
+    background-color: #4e73df;
+    color: white;
+}
+
+.activePage{
+    background-color: #4e73df !important;
+    color: white !important;
+}
+
+.section{
+    border: 1px solid black;
+    width: 80%;
+    margin: auto;
+    height: 500px;
+}

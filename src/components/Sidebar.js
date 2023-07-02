@@ -30,6 +30,13 @@ function Sidebar() {
         <span>Add User</span>
     </Link>
 </li>
+
+<li className="nav-item">
+    <Link to='/details' className="nav-link">
+        <i className="fas fa-fw fa-cog"></i>
+        <span>Details</span>
+    </Link>
+</li>
     </ul>
   </>
 }
