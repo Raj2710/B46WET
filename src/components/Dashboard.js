@@ -1,46 +1,19 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import Card from "./Card";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { Link,useNavigate } from 'react-router-dom';
-
-function Dashboard({users,setUsers}) {
+import { UserContext } from './context/UserContextComponent';
+import { DashboardContext } from './context/DashboardContextComponent';
+function Dashboard() {
+  let context = useContext(UserContext)
+  let dashboard = useContext(DashboardContext)
   let navigate = useNavigate()
-  let data = [
-    {
-      title:"Earnings (Monthly)",
-      value:"$40,000",
-      color:"primary",
-      icon:"fa-calendar",
-      isProgress:false
-    },
-    {
-      title:"Earnings (Anual)",
-      value:"$160,000",
-      color:"success",
-      icon:"fa-dollar-sign",
-      isProgress:false
-    },
-    {
-      title:"Task",
-      value:"100%",
-      color:"info",
-      icon:"fa-clipboard-list",
-      isProgress:true
-    },
-    {
-      title:"Pending Request",
-      value:"18",
-      color:"warning",
-      icon:"fa-comments",
-      isProgress:false
-    }
-  ]
 
   let handleDelete = (i)=>{
-    let newUsers = [...users]
+    let newUsers = [...context.users]
     newUsers.splice(i,1)
-    setUsers(newUsers)
+    context.setUsers(newUsers)
   }
   return <>
      <div className="container-fluid">
@@ -51,7 +24,7 @@ function Dashboard({users,setUsers}) {
             <div className="row">
 
                 {
-                  data.map((e,i)=>{
+                  dashboard.data.map((e,i)=>{
                     return <Card key={i}
                     title={e.title}
                     value={e.value}
@@ -79,7 +52,7 @@ function Dashboard({users,setUsers}) {
       </thead>
       <tbody>
         {
-          users.map((e,i)=>{
+          context.users.map((e,i)=>{
             return <tr key={i}>
               <td>{i+1}</td>
               <td>{e.name}</td>
