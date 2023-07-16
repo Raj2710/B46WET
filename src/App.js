@@ -28,11 +28,11 @@ function App() {
                                             </UserContextComponent>}/>
           <Route path='/add-user' element={<UserContextComponent><AddUser/></UserContextComponent>}/>
           <Route path='/edit-user/:id' element={<UserContextComponent><EditUser/></UserContextComponent>}/>
-          <Route path='/details' element={<Details/>}>
-            <Route path='accounts' element={<Accounts/>}/>
+          <Route path='/hooks' element={<Details/>}>
+            <Route path='useref' element={<Accounts/>}/>
             <Route path='bill' element={<Bill/>}/>
             <Route path='password' element={<Password/>}/>
-            <Route path='payments' element={<Payments/>}/>
+            <Route path='usereducer' element={<Payments/>}/>
             <Route path='profile' element={<Profile/>}/>
           </Route>
           <Route path='*' element={<Navigate to='/dashboard'/>}/>

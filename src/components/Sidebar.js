@@ -32,9 +32,9 @@ function Sidebar() {
 </li>
 
 <li className="nav-item">
-    <Link to='/details' className="nav-link">
+    <Link to='/hooks' className="nav-link">
         <i className="fas fa-fw fa-cog"></i>
-        <span>Details</span>
+        <span>Hooks</span>
     </Link>
 </li>
     </ul>
