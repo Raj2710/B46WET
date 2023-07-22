@@ -1,20 +1,42 @@
-import React,{useContext} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import Card from "./Card";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { Link,useNavigate } from 'react-router-dom';
-import { UserContext } from './context/UserContextComponent';
+import {useNavigate } from 'react-router-dom';
 import { DashboardContext } from './context/DashboardContextComponent';
+import axios from 'axios';
 function Dashboard() {
-  let context = useContext(UserContext)
   let dashboard = useContext(DashboardContext)
   let navigate = useNavigate()
-
-  let handleDelete = (i)=>{
-    let newUsers = [...context.users]
-    newUsers.splice(i,1)
-    context.setUsers(newUsers)
+  let [users,setUsers] = useState([])
+  let handleDelete = async (i)=>{
+    try {
+      let res = await axios.delete(`${'https://6486a3c8beba6297278efd7e.mockapi.io/users'}/${i}`)
+      if(res.status===200)
+        getUsers()
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  let getUsers = async ()=>{
+    try {
+      // fetch(`${'https://6486a3c8beba6297278efd7e.mockapi.io/users'}`)
+      // .then(res=>res.json())
+      // .then(data=>setUsers(data))
+      let res = await axios.get(`${'https://6486a3c8beba6297278efd7e.mockapi.io/users'}`)
+      setUsers(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(()=>{
+    getUsers()
+  },[])
+
+
+
   return <>
      <div className="container-fluid">
             <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -52,21 +74,21 @@ function Dashboard() {
       </thead>
       <tbody>
         {
-          context.users.map((e,i)=>{
+          users.map((e,i)=>{
             return <tr key={i}>
-              <td>{i+1}</td>
+              <td>{e.id}</td>
               <td>{e.name}</td>
               <td>{e.email}</td>
               <td>{e.mobile}</td>
               <td>{e.address}</td>
               <td>{e.batch}</td>
               <td>
-                <Button variant='primary' onClick={()=>{navigate(`/edit-user/${i}`)}}>
+                <Button variant='primary' onClick={()=>{navigate(`/edit-user/${e.id}`)}}>
                   {/* <Link to={`/edit-user/${i}`}>Edit</Link> */}
                   Edit
                 </Button>
                 &nbsp;
-                <Button variant='danger' onClick={()=>handleDelete(i)}>Delete</Button>
+                <Button variant='danger' onClick={()=>handleDelete(e.id)}>Delete</Button>
               </td>
             </tr>
           })

@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import { UserContext } from './context/UserContextComponent';
+import axios from 'axios';
 
 function EditUser() {
-
-  let context = useContext(UserContext)
   let params = useParams()
   let [name,setName] = useState()
   let [email,setEmail] = useState()
@@ -15,27 +13,43 @@ function EditUser() {
   let [batch,setBatch] = useState()
   let navigate = useNavigate()
 
-let handleSave = ()=>{
-  let newArray = [...context.users]
-  newArray.splice(params.id,1,{name,email,mobile,address,batch})
-  context.setUsers(newArray)
-  navigate('/dashboard')
+let handleSave = async()=>{
+  try {
+    let res = await axios.put(`${'https://6486a3c8beba6297278efd7e.mockapi.io/users'}/${params.id}`,{
+      name,
+      email,
+      address,
+      mobile,
+      batch
+    })
+    if(res.status===200)
+      navigate('/dashboard')
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+let getUserData = async()=>{
+  try {
+    let res = await axios.get(`${'https://6486a3c8beba6297278efd7e.mockapi.io/users'}/${params.id}`)
+    if(res.status===200)
+    {
+      setName(res.data.name)
+      setEmail(res.data.email)
+      setMobile(res.data.mobile)
+      setAddress(res.data.address)
+      setBatch(res.data.batch)
+    }
+  } catch (error) {
+      console.log(error)
+  }
 }
 
 useEffect(()=>{
-  if(params.id < context.users.length)
-  {
-    setName(context.users[params.id].name)
-    setEmail(context.users[params.id].email)
-    setMobile(context.users[params.id].mobile)
-    setAddress(context.users[params.id].address)
-    setBatch(context.users[params.id].batch)
-  }
+  if(params.id)
+    getUserData()
   else
-  {
-    alert("Invalid User Id")
     navigate('/dashboard')
-  }
 },[])
 
 //1. Without dependancy array useEffect(()=>{}) --> triggers everytime whena a state changes

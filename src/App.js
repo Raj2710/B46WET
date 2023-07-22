@@ -2,9 +2,8 @@ import React from "react";
 import Dashboard from "./components/Dashboard";
 import AddUser from "./components/AddUser";
 import Sidebar from "./components/Sidebar";
-import {BrowserRouter,Routes,Route, Navigate, useLocation} from 'react-router-dom'
+import {BrowserRouter,Routes,Route, Navigate} from 'react-router-dom'
 import EditUser from "./components/EditUser";
-import { useState } from "react";
 import Details from "./components/Details/Details";
 import Accounts from './components/Details/Accounts'
 import Bill from './components/Details/Bill'

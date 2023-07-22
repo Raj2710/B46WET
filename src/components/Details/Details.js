@@ -1,8 +1,8 @@
 import React,{useState,useEffect,useRef} from 'react'
 import './Details.css'
-import { Outlet, useNavigate,useLocation } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 function Details() {
-   let location = useLocation()
+   // let location = useLocation()
   let [currentPage,setCurrentPage] = useState(1)
   let navigate = useNavigate()
   let option1 = useRef()

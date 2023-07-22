@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, {useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from './context/UserContextComponent';
+import axios from 'axios';
 function AddUser() {
-  let context = useContext(UserContext)
   let [name,setName] = useState("")
   let [email,setEmail] = useState("")
   let [mobile,setMobile] = useState("")
@@ -12,17 +11,20 @@ function AddUser() {
   let [batch,setBatch] = useState("")
   let navigate = useNavigate()
 
-  let handleSave = ()=>{
-    let newArray = [...context.users]
-    newArray.push({
-      name,
-      email,
-      mobile,
-      address,
-      batch
-    })
-    context.setUsers(newArray)
-    navigate('/dashboard')
+  let handleSave = async ()=>{
+    try {
+      let res = await axios.post(`${'https://6486a3c8beba6297278efd7e.mockapi.io/users'}`,{
+        name,
+        email,
+        mobile,
+        address,
+        batch
+      })
+      if(res.status===201)
+        navigate('/dashboard')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return <div className='container'>
