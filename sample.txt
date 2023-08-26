@@ -1,0 +1,1 @@
+Node.js maintain's several connections per server to make HTTP requests. This function allows one to transparently issue requests.
