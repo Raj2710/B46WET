@@ -1,10 +1,8 @@
-const {mongodb,client} = require('../config/dbconfig')
 const sanitize = require('../common/Sanitize')
+const userModel = require('../model/users')
 const getUsers = async(req,res)=>{
-    await client.connect();
     try {
-        let db = await client.db(process.env.dbName)
-        let data = await db.collection('users').find().toArray();
+        let data = await userModel.find()
         res.status(200).send({
             data,
             message:"User Data Fetch Successfull"
@@ -15,16 +13,11 @@ const getUsers = async(req,res)=>{
             errorMessage: error.message
         })
     }
-    finally{
-        await client.close()
-    }
 }
 const getUserById =  async(req,res)=>{
-    await client.connect()
     try {
-        let db = await client.db(process.env.dbName)
-        let userId = new mongodb.ObjectId(sanitize.isString(req.params.id))
-        let data = await db.collection('users').findOne({_id: userId})
+        let userId = sanitize.isString(req.params.id)
+        let data = await userModel.findById(userId)
         if(data)
         {
             res.status(200).send({
@@ -40,13 +33,9 @@ const getUserById =  async(req,res)=>{
             errorMessage: error.message
         })
     }
-    finally{
-        await client.close()
-    }
 }
 
 const createUser = async(req,res)=>{
-    await client.connect();
     try {
         const firstName = sanitize.isString(req.body.firstName)
         const lastName = sanitize.isString(req.body.lastName)
@@ -54,11 +43,10 @@ const createUser = async(req,res)=>{
         const batch = sanitize.isString(req.body.batch)
         const status = sanitize.isBoolean(req.body.status)
 
-        const db = client.db(process.env.dbName);
-       let existingUser = await db.collection('users').findOne({email:email})
+       let existingUser = await userModel.findOne({email:email})
        if(!existingUser)
        {
-            await db.collection('users').insertOne({firstName,lastName,email,batch,status})
+            await userModel.create({firstName,lastName,email,batch,status})
 
             res.status(200).send({
                 message:"User Created Successfully"
@@ -76,13 +64,9 @@ const createUser = async(req,res)=>{
             errorMessage: error.message
         })
     }
-    finally{
-        await client.close()
-    }
 }
 
 const editUserById = async(req,res)=>{
-    await client.connect();
     try {
 
         const firstName = sanitize.isString(req.body.firstName)
@@ -91,12 +75,19 @@ const editUserById = async(req,res)=>{
         const batch = sanitize.isString(req.body.batch)
         const status = sanitize.isBoolean(req.body.status)
 
-        let db = await client.db(process.env.dbName)
-        let userId = new mongodb.ObjectId(sanitize.isString(req.params.id))
-        let data = await db.collection('users').findOne({_id: userId})
-        if(data)
+        let userId = sanitize.isString(req.params.id)
+        let user = await userModel.findById(userId)
+        if(user)
         {
-            await db.collection('users').updateOne({_id: userId},{$set:{firstName,lastName,email,batch,status}})
+            // bad approach await userModel.updateOne({_id: userId},{$set:{firstName,lastName,email,batch,status}})
+            //suggested approach
+            user.firstName = firstName
+            user.lastName = lastName
+            user.email = email
+            user.batch = batch
+            user.status = status
+            await user.save()
+
             res.status(200).send({
                 message:"User Data Edited Successfully"
             })
@@ -110,20 +101,15 @@ const editUserById = async(req,res)=>{
             errorMessage: error.message
         })
     }
-    finally{
-        await client.close()
-    }
 }
 
 const deleteUserById = async(req,res)=>{
-    await client.connect();
     try {
-        let db = await client.db(process.env.dbName)
-        let userId = new mongodb.ObjectId(sanitize.isString(req.params.id))
-        let data = await db.collection('users').findOne({_id: userId})
+        let userId = sanitize.isString(req.params.id)
+        let data = await userModel.findById(userId)
         if(data)
         {
-            await db.collection('users').deleteOne({_id: userId})
+            await userModel.deleteOne({_id:userId})
             res.status(200).send({
                 message:"User Data Deleted Successfully"
             })
@@ -140,9 +126,6 @@ const deleteUserById = async(req,res)=>{
             message:"Internal Server Error",
             errorMessage: error.message
         })
-    }
-    finally{
-        await client.close()
     }
 }
 
