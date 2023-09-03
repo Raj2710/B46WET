@@ -1,31 +1,9 @@
-const {mongodb,client,dbName} = require('../config/dbconfig')
-const data = [
-    {
-        "firstName":"Nag",
-        "lastName":"Raj",
-        "email":"nag@gmail.com",
-        "batch":"B20WEE",
-        "status":false
-    },
-    {
-        "firstName":"Raj",
-        "lastName":"Raj",
-        "email":"Raj@gmail.com",
-        "batch":"B46WET",
-        "status":true
-    },
-    {
-        "firstName":"Kritish",
-        "lastName":"Datt",
-        "email":"kritish@gmail.com",
-        "batch":"B46WET",
-        "status":true   
-    }
-]
+const {mongodb,client} = require('../config/dbconfig')
+const sanitize = require('../common/Sanitize')
 const getUsers = async(req,res)=>{
     await client.connect();
     try {
-        let db = await client.db(dbName)
+        let db = await client.db(process.env.dbName)
         let data = await db.collection('users').find().toArray();
         res.status(200).send({
             data,
@@ -44,7 +22,7 @@ const getUsers = async(req,res)=>{
 const getUserById =  async(req,res)=>{
     await client.connect()
     try {
-        let db = await client.db(dbName)
+        let db = await client.db(process.env.dbName)
         let userId = new mongodb.ObjectId(req.params.id)
         let data = await db.collection('users').findOne({_id: userId})
         if(data)
@@ -70,11 +48,17 @@ const getUserById =  async(req,res)=>{
 const createUser = async(req,res)=>{
     await client.connect();
     try {
-        const db = client.db(dbName);
-       let existingUser = await db.collection('users').findOne({email:req.body.email})
+        const firstName = sanitize.isString(req.body.firstName)
+        const lastName = sanitize.isString(req.body.lastName)
+        const email = sanitize.isString(req.body.email)
+        const batch = sanitize.isString(req.body.batch)
+        const status = sanitize.isBoolean(req.body.status)
+
+        const db = client.db(process.env.dbName);
+       let existingUser = await db.collection('users').findOne({email:email})
        if(!existingUser)
        {
-            await db.collection('users').insertOne(req.body)
+            await db.collection('users').insertOne({firstName,lastName,email,batch,status})
 
             res.status(200).send({
                 message:"User Created Successfully"
@@ -100,7 +84,7 @@ const createUser = async(req,res)=>{
 const editUserById = async(req,res)=>{
     await client.connect();
     try {
-        let db = await client.db(dbName)
+        let db = await client.db(process.env.dbName)
         let userId = new mongodb.ObjectId(req.params.id)
         let data = await db.collection('users').findOne({_id: userId})
         if(data)
@@ -127,7 +111,7 @@ const editUserById = async(req,res)=>{
 const deleteUserById = async(req,res)=>{
     await client.connect();
     try {
-        let db = await client.db(dbName)
+        let db = await client.db(process.env.dbName)
         let userId = new mongodb.ObjectId(req.params.id)
         let data = await db.collection('users').findOne({_id: userId})
         if(data)
