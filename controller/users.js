@@ -23,7 +23,7 @@ const getUserById =  async(req,res)=>{
     await client.connect()
     try {
         let db = await client.db(process.env.dbName)
-        let userId = new mongodb.ObjectId(req.params.id)
+        let userId = new mongodb.ObjectId(sanitize.isString(req.params.id))
         let data = await db.collection('users').findOne({_id: userId})
         if(data)
         {
@@ -84,12 +84,19 @@ const createUser = async(req,res)=>{
 const editUserById = async(req,res)=>{
     await client.connect();
     try {
+
+        const firstName = sanitize.isString(req.body.firstName)
+        const lastName = sanitize.isString(req.body.lastName)
+        const email = sanitize.isString(req.body.email)
+        const batch = sanitize.isString(req.body.batch)
+        const status = sanitize.isBoolean(req.body.status)
+
         let db = await client.db(process.env.dbName)
-        let userId = new mongodb.ObjectId(req.params.id)
+        let userId = new mongodb.ObjectId(sanitize.isString(req.params.id))
         let data = await db.collection('users').findOne({_id: userId})
         if(data)
         {
-            await db.collection('users').updateOne({_id: userId},{$set:req.body})
+            await db.collection('users').updateOne({_id: userId},{$set:{firstName,lastName,email,batch,status}})
             res.status(200).send({
                 message:"User Data Edited Successfully"
             })
@@ -112,7 +119,7 @@ const deleteUserById = async(req,res)=>{
     await client.connect();
     try {
         let db = await client.db(process.env.dbName)
-        let userId = new mongodb.ObjectId(req.params.id)
+        let userId = new mongodb.ObjectId(sanitize.isString(req.params.id))
         let data = await db.collection('users').findOne({_id: userId})
         if(data)
         {
